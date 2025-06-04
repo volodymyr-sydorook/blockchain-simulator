@@ -1,32 +1,15 @@
-# blockchain/block.py
 import hashlib
-import json
 import time
 
 class Block:
-    """
-    Представляє окремий блок у блокчейні.
-    """
     def __init__(self, index, transactions, previous_hash, nonce=0):
-        self.index = index  # Порядковий номер блоку
-        self.timestamp = time.time()  # Час створення
-        self.transactions = transactions  # Транзакції у блоці
-        self.previous_hash = previous_hash  # Хеш попереднього блоку
-        self.nonce = nonce  # Значення для майнінгу (якщо потрібно)
-        self.hash = self.calculate_hash()  # Власний хеш
+        self.index = index
+        self.transactions = transactions
+        self.timestamp = time.time()
+        self.previous_hash = previous_hash
+        self.nonce = nonce
+        self.hash = self.compute_hash()
 
-    def calculate_hash(self):
-        """
-        Обчислює SHA-256 хеш поточного блоку.
-        """
-        # Створюємо рядок з усіх полів блоку
-        block_string = json.dumps({
-            "index": self.index,
-            "timestamp": self.timestamp,
-            "transactions": self.transactions,
-            "previous_hash": self.previous_hash,
-            "nonce": self.nonce
-        }, sort_keys=True).encode()
-
-        # Повертаємо SHA-256 хеш цього рядка
-        return hashlib.sha256(block_string).hexdigest()
+    def compute_hash(self):
+        block_string = f"{self.index}{self.transactions}{self.timestamp}{self.previous_hash}{self.nonce}"
+        return hashlib.sha256(block_string.encode()).hexdigest()

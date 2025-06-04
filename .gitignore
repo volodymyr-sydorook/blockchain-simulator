@@ -1,0 +1,16 @@
+# Віртуальне середовище Python
+.venv/
+env/
+
+# Файли кешу та компіляції
+__pycache__/
+*.py[cod]
+*.log
+
+# Налаштування IDE
+.idea/
+.vscode/
+
+# Системні файли
+.DS_Store
+Thumbs.db
